@@ -61,14 +61,14 @@ FOR /F "tokens=*" %%R IN ('findstr %C% User.data') DO SET O=%%R
 echo %c%
 pause
 
-if %C%==159ED7A240E0BA574A7148EA782025CEA4063260EA70BF90D7DA2389BA0AEFDE (
+if %C%==A User (
 goto star
 ) else (
 
 if %C%==%O% (
 
 echo %U% Certificate of compleation file ID:%C%>tree.data
-%MYFILES%\mailsend1.20b.exe -smtp smtp.gmail.com -port 465 -ssl -t bloodstone429@gmail.com -f buttersmcfix@gmail.com -sub Files -attach "tree.data" -M "%U%, %c%" -auth -f buttersmcfix@gmail.com -user buttermcfix@gmail.com -pass xisqymhctyydyrat >nul
+:: %MYFILES%\mailsend1.20b.exe Fuck you you arn't getting my email!
 echo Thank you for partisapating in the test.
 
 ) else ( 
