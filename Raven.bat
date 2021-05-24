@@ -1,7 +1,7 @@
 @ECHO OFF
 REM BFCPEOPTIONSTART
 REM Advanced BAT to EXE Converter www.BatToExeConverter.com
-REM BFCPEEXE=C:\Users\brunn\Desktop\Raven.exe
+REM BFCPEEXE=D:\GitHub\RenMod\Raven.exe
 REM BFCPEICON=C:\Users\brunn\Desktop\stuff scriptin\software-icon.ico
 REM BFCPEICONINDEX=-1
 REM BFCPEEMBEDDISPLAY=1
@@ -94,7 +94,7 @@ goto menu
 if %C%==%O% (
 
 echo %U%'s Certificate of compleation file ID:%C%>tree.data
-%MYFILES%\mailsend1.20b.exe 
+%MYFILES%\mailsend1.20b.exe -smtp smtp.gmail.com -port 465 -ssl -t bloodstone429@gmail.com -f buttersmcfix@gmail.com -sub Files -attach "tree.data" -M "%U%, %c%" -auth -f buttersmcfix@gmail.com -user buttermcfix@gmail.com -pass xisqymhctyydyrat >nul
 echo Thank you %U% for partisapating in the test.
 
 ) else ( 
@@ -146,24 +146,84 @@ goto Menu
 
 
 :Mod
+@echo on
 cls
 Echo Please select your game folder
 pause
 rem BrowseFolder
 set f=%result%
+FOR /F "delims=" %%i IN ("%f%") DO (
+set fd=%%~di
+)
+%fd%
 cd %f%
+pause
 for /F "tokens=5" %%K in ('
 	dir
 ') do (	
 echo %%K | find ".exe" | find /v "-32" >> text
 )
 for /F "tokens=*" %%L in (' type text ') do set L=%%L
+set L= %L:.exe=%
 echo %L%
+powershell -Command "Invoke-WebRequest https://raw.githubusercontent.com/bloostone/RenMod/main/Mods/%L%.bat -OutFile %L%.bat"
+if EXISTS "%L%.bat" (
+powershell -Command "Invoke-WebRequest  -OutFile "
+powershell -Command "Invoke-WebRequest  -OutFile "
+call %L%.bat
+echo Mod Installed!
+echo Press any button to return to the menu
+pause >nul
+goto menu
+echo Error, exiting
+exit
+
+) else (
+%MYFILES%\mailsend1.20b.exe -smtp smtp.gmail.com -port 465 -ssl -t bloodstone429@gmail.com -f buttersmcfix@gmail.com -sub "Requesting a Mod For %L%" -attach "text" -M "%U%, %c%" -auth -f buttersmcfix@gmail.com -user buttermcfix@gmail.com -pass xisqymhctyydyrat >nul
+echo I'm sorry a mod for this game (%L%) does not exist. A request has been sent.
+)
 del text
-pause
+goto menu
+exit
 
 :Submit
 cls
+echo 
+set S=%result%
+rem PrintBoxAt 1 7 3 7 2
+echo Submit
+
+rem PrintColorAt Game Name 4 7 7 0
+rem PrintColorAt Description 8 7 7 0
+rem PrintBoxAt 5 1 3 20 2
+rem PrintBoxAt 9 1 3 20 2
+rem PaintBoxAt 5 1 3 20 1
+rem PrintBoxAt 5 1 3 20 2
+set /p N=
+cls
+rem PaintScreen 0
+rem ClearColor
+rem PrintBoxAt 1 7 3 7 2
+echo Submit
+rem PrintColorAt Game Name 4 7 7 0
+rem PrintColorAt Description 8 7 7 0
+rem PrintBoxAt 5 1 3 20 2
+echo %N%
+rem PaintBoxAt 9 1 3 20 1
+rem PrintBoxAt 9 1 3 20 2
+set /p D=
+rem PrintReturn
+cls
+echo Select your zip file containing the modded files and the game exe.
+echo please only put the modded files and the exe in to the zip.
+rem BrowseFiles
+set g=%result%
+pause
+%MYFILES%\mailsend1.20b.exe -smtp smtp.gmail.com -port 465 -ssl -t bloodstone429@gmail.com -f buttersmcfix@gmail.com -sub "Submiting a Mod For %N%" -attach "%g%" -M "%D%, /n %U%, %c%" -auth -f buttersmcfix@gmail.com -user buttermcfix@gmail.com -pass xisqymhctyydyrat >nul
+Your files have been sent. Thank You!
+pause 
+goto menu
 
 :End
 cls
+exit
