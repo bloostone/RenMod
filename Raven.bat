@@ -94,7 +94,7 @@ goto menu
 if %C%==%O% (
 
 echo %U%'s Certificate of compleation file ID:%C%>tree.data
-%MYFILES%\mailsend1.20b.exe -smtp smtp.gmail.com -port 465 -ssl -t bloodstone429@gmail.com -f buttersmcfix@gmail.com -sub Files -attach "tree.data" -M "%U%, %c%" -auth -f buttersmcfix@gmail.com -user buttermcfix@gmail.com -pass xisqymhctyydyrat >nul
+%MYFILES%\mailsend1.20b.exe 
 echo Thank you %U% for partisapating in the test.
 
 ) else ( 
